@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tzeck <tzeck@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/23 10:04:46 by tzeck             #+#    #+#             */
-/*   Updated: 2021/08/31 14:26:51 by tzeck            ###   ########.fr       */
+/*   Updated: 2021/08/31 14:27:06 by tzeck            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,14 +69,14 @@ char	*return_string(char **tmp, int i, int byte_read)
 
 char	*get_next_line(int fd)
 {
-	static char	*tmp;
+	static char	*tmp[10240];
 	char		*buf;
 	int			i;
 	int			byte_read;
 
 	if (BUFFER_SIZE <= 0 || fd < 0 || fd > 1024)
 		return (NULL);
-	i = ft_strchr(tmp, '\n');
+	i = ft_strchr(tmp[fd], '\n');
 	buf = NULL;
 	while (i == -1)
 	{
@@ -86,10 +86,10 @@ char	*get_next_line(int fd)
 		byte_read = read(fd, buf, BUFFER_SIZE);
 		if (byte_read <= 0)
 			break ;
-		tmp = ft_strnjoin(tmp, buf, byte_read);
-		i = ft_strchr(tmp, '\n');
+		tmp[fd] = ft_strnjoin(tmp[fd], buf, byte_read);
+		i = ft_strchr(tmp[fd], '\n');
 		free_ptr(&buf);
 	}
 	free_ptr(&buf);
-	return (return_string(&tmp, i, byte_read));
+	return (return_string(&tmp[fd], i, byte_read));
 }
