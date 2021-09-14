@@ -6,7 +6,7 @@
 /*   By: tzeck <tzeck@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/23 10:04:46 by tzeck             #+#    #+#             */
-/*   Updated: 2021/08/31 14:27:06 by tzeck            ###   ########.fr       */
+/*   Updated: 2021/09/14 14:02:28 by tzeck            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ char	*get_next_line(int fd)
 	int			i;
 	int			byte_read;
 
-	if (BUFFER_SIZE <= 0 || fd < 0 || fd > 1024)
+	if (BUFFER_SIZE <= 0 || fd < 0 || fd > 10240)
 		return (NULL);
 	i = ft_strchr(tmp[fd], '\n');
 	buf = NULL;
